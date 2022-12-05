@@ -1,0 +1,20 @@
+{
+  "name": "rootaid-v1.2-cli",
+  "type": "module",
+  "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "start": "ts-node-esm ./src/index.ts",
+    "dev": "node ./dist/index.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "inquirer": "^9.1.4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^9.0.3",
+    "@types/node": "^18.11.10",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
