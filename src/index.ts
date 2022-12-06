@@ -2,6 +2,16 @@
 
 import inquirer from 'inquirer'
 
+const archCodes = [['monolithic', 'ml'], ['microservices', 'mi'], ['serverless', 'se']] 
+const apiCodes = [['rest', 're'], ['graphql', 'gq']] 
+const webFrmwrkCodes = [['express', 'ex'], ['koa', 'ko'], ['nestjs', 'ns']] 
+const authCodes = [['keycloak', 'kc'], ['cognito', 'cg'], ['oauth', 'oa'], ['jwt', 'jw']] 
+const dbCodes = [['dynamodb', 'dd'], ['mysql', 'my'], ['postgres', 'pg'], ['mongodb', 'mg']] 
+
+const feFrmwrkCodes = [['react', 'rc'], ['next', 'ne']] 
+const uiLibCodes = [['ant design', 'ad'], ['react-bootstrap', 'rb'], ['material ui', 'mu']] 
+const stateMngmntCodes = [['redux', 'rx'], ['context api', 'ca'], ['zustand', 'zs']] 
+
 async function askOptions() {
 
     const projectType = await inquirer.prompt({
@@ -38,7 +48,7 @@ async function backendOptions () {
         type: 'list',
         message: 'Select the architecture you\'d like to work with: \n',
         choices: [
-            'monolith',
+            'monolithic',
             'microservices',
             'serverless'
         ]
@@ -65,18 +75,6 @@ async function backendOptions () {
         ]
     })
 
-    const dbType = await inquirer.prompt({
-        name: 'db_type',
-        type: 'list',
-        message: 'Select the database you\'d like to work with: \n',
-        choices: [
-            'mongodb',
-            'sql',
-            'postgres',
-            'dynamodb'
-        ]
-    })
-
     const authType = await inquirer.prompt({
         name: 'auth_type',
         type: 'list',
@@ -89,11 +87,52 @@ async function backendOptions () {
         ]
     })
 
-    uniqueId += archType.arch_type.substring(0,2)
-    uniqueId += apiType.api_type.substring(0,2)
-    uniqueId += webFrameworkType.web_framework_type.substring(0,2)
-    uniqueId += dbType.db_type.substring(0,2)
-    uniqueId += authType.auth_type.substring(0,2)
+    const dbType = await inquirer.prompt({
+        name: 'db_type',
+        type: 'list',
+        message: 'Select the database you\'d like to work with: \n',
+        choices: [
+            'mongodb',
+            'sql',
+            'postgres',
+            'dynamodb'
+        ]
+    })
+
+    for(var i = 0; i < archCodes.length; i++ ) {
+        let option = archCodes[i]
+        if(option[0] === archType.arch_type) {
+            uniqueId+= option[1]
+        }
+    }
+
+    for(var i = 0; i < apiCodes.length; i++ ) {
+        let option = apiCodes[i]
+        if(option[0] === apiType.api_type) {
+            uniqueId+= option[1]
+        }
+    }
+
+    for(var i = 0; i < webFrmwrkCodes.length; i++ ) {
+        let option = webFrmwrkCodes[i]
+        if(option[0] === webFrameworkType.web_framework_type) {
+            uniqueId+= option[1]
+        }
+    }
+
+    for(var i = 0; i < authCodes.length; i++ ) {
+        let option = authCodes[i]
+        if(option[0] === authType.auth_type) {
+            uniqueId+= option[1]
+        }
+    }
+
+    for(var i = 0; i < dbCodes.length; i++ ) {
+        let option = dbCodes[i]
+        if(option[0] === dbType.db_type) {
+            uniqueId+= option[1]
+        }
+    }
 
     return uniqueId
 
@@ -102,6 +141,16 @@ async function backendOptions () {
 async function frontendOptions() {
 
     let uniqueId = ''
+
+    const frontendFrameworkType = await inquirer.prompt({
+    name: 'frontend_framework_type',
+    type: 'list',
+    message: 'Select the frontend framework you\'d like to work with: \n',
+    choices: [
+        'react',
+        'next',
+    ]
+    })
 
     const uiLibType = await inquirer.prompt({
     name: 'ui_lib_type',
@@ -114,8 +163,8 @@ async function frontendOptions() {
     ]
     })
 
-    const stateManagement = await inquirer.prompt({
-    name: 'state_management',
+    const stateManagementType = await inquirer.prompt({
+    name: 'state_management_type',
     type: 'list',
     message: 'Select the state manager you\'d like to work with: \n',
     choices: [
@@ -125,8 +174,26 @@ async function frontendOptions() {
     ]
     })
 
-    uniqueId += uiLibType.ui_lib_type.substring(0,2)
-    uniqueId += stateManagement.state_management.substring(0,2)
+    for(var i = 0; i < feFrmwrkCodes.length; i++ ) {
+        let option = feFrmwrkCodes[i]
+        if(option[0] === frontendFrameworkType.frontend_framework_type) {
+            uniqueId+= option[1]
+        }
+    }
+
+    for(var i = 0; i < uiLibCodes.length; i++ ) {
+        let option = uiLibCodes[i]
+        if(option[0] === uiLibType.ui_lib_type) {
+            uniqueId+= option[1]
+        }
+    }
+
+    for(var i = 0; i < stateMngmntCodes.length; i++ ) {
+        let option = stateMngmntCodes[i]
+        if(option[0] === stateManagementType.state_management_type) {
+            uniqueId+= option[1]
+        }
+    }
 
     return uniqueId
 
