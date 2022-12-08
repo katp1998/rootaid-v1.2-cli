@@ -41,7 +41,7 @@ async function askOptions() {
 
 async function backendOptions () {
 
-    let uniqueId = ''
+    let projectPath = './templates/backend'
 
     const archType = await inquirer.prompt({
         name: 'arch_type',
@@ -99,48 +99,19 @@ async function backendOptions () {
         ]
     })
 
-    for(var i = 0; i < archCodes.length; i++ ) {
-        let option = archCodes[i]
-        if(option[0] === archType.arch_type) {
-            uniqueId+= option[1]
-        }
-    }
+    projectPath += `/${archType.arch_type}`
+    projectPath += `/${apiType.api_type}`
+    projectPath += `/${webFrameworkType.web_framework_type}`
+    projectPath += `/${authType.auth_type}`
+    projectPath += `/${dbType.db_type}`
 
-    for(var i = 0; i < apiCodes.length; i++ ) {
-        let option = apiCodes[i]
-        if(option[0] === apiType.api_type) {
-            uniqueId+= option[1]
-        }
-    }
-
-    for(var i = 0; i < webFrmwrkCodes.length; i++ ) {
-        let option = webFrmwrkCodes[i]
-        if(option[0] === webFrameworkType.web_framework_type) {
-            uniqueId+= option[1]
-        }
-    }
-
-    for(var i = 0; i < authCodes.length; i++ ) {
-        let option = authCodes[i]
-        if(option[0] === authType.auth_type) {
-            uniqueId+= option[1]
-        }
-    }
-
-    for(var i = 0; i < dbCodes.length; i++ ) {
-        let option = dbCodes[i]
-        if(option[0] === dbType.db_type) {
-            uniqueId+= option[1]
-        }
-    }
-
-    return uniqueId
+    return projectPath
 
 }
 
 async function frontendOptions() {
 
-    let uniqueId = ''
+    let projectPath = './templates/frontend'
 
     const frontendFrameworkType = await inquirer.prompt({
     name: 'frontend_framework_type',
@@ -157,7 +128,7 @@ async function frontendOptions() {
     type: 'list',
     message: 'Select the UI library you\'d like to work with: \n',
     choices: [
-        'ant design',
+        'ant-design',
         'mui',
         'react-bootstrap',
     ]
@@ -174,28 +145,11 @@ async function frontendOptions() {
     ]
     })
 
-    for(var i = 0; i < feFrmwrkCodes.length; i++ ) {
-        let option = feFrmwrkCodes[i]
-        if(option[0] === frontendFrameworkType.frontend_framework_type) {
-            uniqueId+= option[1]
-        }
-    }
+    projectPath += `/${frontendFrameworkType.frontend_framework_type}`
+    projectPath += `/${uiLibType.ui_lib_type}`
+    projectPath += `/${stateManagementType.state_management_type}`
 
-    for(var i = 0; i < uiLibCodes.length; i++ ) {
-        let option = uiLibCodes[i]
-        if(option[0] === uiLibType.ui_lib_type) {
-            uniqueId+= option[1]
-        }
-    }
-
-    for(var i = 0; i < stateMngmntCodes.length; i++ ) {
-        let option = stateMngmntCodes[i]
-        if(option[0] === stateManagementType.state_management_type) {
-            uniqueId+= option[1]
-        }
-    }
-
-    return uniqueId
+    return projectPath
 
 }
 
