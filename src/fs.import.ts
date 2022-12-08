@@ -1,17 +1,38 @@
-import fs from 'fs-extra'
+import fs from "fs-extra";
 
-export const copyProject =async (folderpath: string) => {
-    const srcDir = folderpath
-    const destDir = 'project'
-    try {
-        //copy contents of end folder structure to project:
-        fs.copySync(srcDir, destDir)
-
-    } catch (error) {
-        console.log(error, 'invalid folderpath!')
+//For FE or BE projects only:
+export const copyProject = (folderpath: string) => {
+  const destDir = "./project";
+  try {
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
     }
-}
 
+    //copy contents of end folder structure to project:
+    fs.copySync(folderpath, destDir, { recursive: true });
+    console.log("Successfully created!");
+  } catch (error) {
+    console.log(error, "invalid folderpath!");
+  }
+};
 
+//For fullstack projects only
+export const copyFullStackProject = (
+  frontendFolderPath: string,
+  BackendFolderPath: string
+) => {
+  const destDir = "./project";
+  try {
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
 
+    //copy contents of end folder structure inside project for frontend and backend:
+    fs.copySync(frontendFolderPath, destDir + "/frontend", { recursive: true });
+    fs.copySync(BackendFolderPath, destDir + "/backend", { recursive: true });
 
+    console.log("Successfully created!");
+  } catch (error) {
+    console.log(error, "invalid folderpath!");
+  }
+};
