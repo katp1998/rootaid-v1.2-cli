@@ -41,7 +41,7 @@ async function askOptions() {
 
 async function backendOptions () {
 
-    let projectPath = './backend'
+    let projectPath = './templates/backend'
 
     const archType = await inquirer.prompt({
         name: 'arch_type',
@@ -111,7 +111,7 @@ async function backendOptions () {
 
 async function frontendOptions() {
 
-    let projectPath = './frontend'
+    let projectPath = './templates/frontend'
 
     const frontendFrameworkType = await inquirer.prompt({
     name: 'frontend_framework_type',
