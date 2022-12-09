@@ -4,43 +4,42 @@ import inquirer from "inquirer";
 import { copyFullStackProject, copyProject } from "./fs.import.js";
 
 async function askOptions() {
-  const repoType = await inquirer.prompt ({
+  const repoType = await inquirer.prompt({
     name: "repo_type",
     type: "list",
     message: "Select the type of repo you'd like to work with: \n",
     choices: ["Monorepo", "Polyrepo"],
-  })
+  });
 
   //if repo:
   if (repoType.repo_type == "Monorepo") {
-    console.log("Monorepo is still under construction!")
+    console.log("Monorepo is still under construction!");
     process.exit(0);
-  }
-  else{
-  const projectType = await inquirer.prompt({
-    name: "project_type",
-    type: "list",
-    message: "Select the type of project you'd like to work with: \n",
-    choices: ["Frontend", "Backend", "Fullstack"],
-  });
-
-  if (projectType.project_type === "Backend") {
-    const result = await backendOptions();
-    copyProject(result);
-  } else if (projectType.project_type === "Frontend") {
-    const result = await frontendOptions();
-    copyProject(result);
   } else {
-    const feResult = await frontendOptions();
-    const beResult = await backendOptions();
+    const projectType = await inquirer.prompt({
+      name: "project_type",
+      type: "list",
+      message: "Select the type of project you'd like to work with: \n",
+      choices: ["Frontend", "Backend", "Fullstack"],
+    });
 
-    copyFullStackProject(feResult, beResult);
+    if (projectType.project_type === "Backend") {
+      const result = await backendOptions();
+      copyProject(result);
+    } else if (projectType.project_type === "Frontend") {
+      const result = await frontendOptions();
+      copyProject(result);
+    } else {
+      const feResult = await frontendOptions();
+      const beResult = await backendOptions();
+
+      copyFullStackProject(feResult, beResult);
+    }
   }
-}
 }
 
 async function backendOptions() {
-  let projectPath = "../templates/Polyrepo/Backend";
+  let projectPath = "./src/templates/Polyrepo/Backend";
 
   const archType = await inquirer.prompt({
     name: "arch_type",
@@ -81,12 +80,12 @@ async function backendOptions() {
   projectPath += `/${apiType.api_type}`;
   projectPath += `/${webFrameworkType.web_framework_type}`;
   projectPath += `/${authType.auth_type}`;
-  projectPath += `/${dbType.db_type}/`;
+  projectPath += `/${dbType.db_type}`;
   return projectPath;
 }
 
 async function frontendOptions() {
-  let projectPath = "../templates/Polyrepo/Frontend";
+  let projectPath = "./src/templates/Polyrepo/Frontend";
 
   const frontendFrameworkType = await inquirer.prompt({
     name: "frontend_framework_type",
@@ -99,7 +98,7 @@ async function frontendOptions() {
     type: "list",
     message: "Select the state manager you'd like to work with: \n",
     choices: ["Redux", "Context", "Zustand"],
-  }); 
+  });
 
   const uiLibType = await inquirer.prompt({
     name: "ui_lib_type",
@@ -108,12 +107,9 @@ async function frontendOptions() {
     choices: ["Ant-design", "MUI", "React-bootstrap"],
   });
 
-  
-
   projectPath += `/${frontendFrameworkType.frontend_framework_type}`;
   projectPath += `/${stateManagementType.state_management_type}`;
   projectPath += `/${uiLibType.ui_lib_type}`;
-  
 
   return projectPath;
 }
