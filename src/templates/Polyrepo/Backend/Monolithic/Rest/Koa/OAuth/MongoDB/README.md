@@ -6,6 +6,3 @@ To configure prettier and eslint-airbnb-config-typescript:
     3. Run:
         yarn run lint --fix
     4. Fix the remaining errors manually
-
-    
-## This boilerplate under the construction
