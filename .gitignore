@@ -1,5 +1,4 @@
 .yarn
-dist
 node_modules
 .DS_STORE
 project
