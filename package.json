@@ -4,7 +4,7 @@
   "packageManager": "yarn@3.2.4",
   "scripts": {
     "build": "tsc && yarn copy-files",
-    "start":"ts-node-esm ./dist/index.js",
+    "start":"ts-node-esm ./dist/src/index.js",
     "copy-files": "copyfiles -V \"./src/templates/**\" \"dist\"",
     "clean": "rm -rf ./dist/"
   },
